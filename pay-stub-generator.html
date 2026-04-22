@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Pay Stub Generator — Create Professional Pay Stubs Instantly | PayStubPal</title>
+  <meta name="description" content="Generate a professional pay stub in minutes. Enter company, employee, and pay details — get a printable, formatted pay stub instantly. Free, no signup.">
+  <link rel="canonical" href="https://www.paystubpal.com/pay-stub-generator.html">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      background: none;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+      border-radius: 6px 6px 0 0;
+    }
+    .tab-btn.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+      background: var(--teal-xlight);
+    }
+    .tab-btn:hover:not(.active) { background: var(--bg); color: var(--text); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* STUB PREVIEW */
+    #stubPreview {
+      background: #fff;
+      border: 2px solid #222;
+      border-radius: 0;
+      padding: 32px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 680px;
+    }
+    .stub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 3px solid #0f2341;
+    }
+    .stub-co-name { font-size: 16px; font-weight: bold; font-family: 'Plus Jakarta Sans', sans-serif; color: #0f2341; }
+    .stub-co-addr { font-size: 11px; color: #555; margin-top: 3px; }
+    .stub-doc-title {
+      text-align: right;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .stub-doc-title h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f2341;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    .stub-doc-title p { font-size: 11px; color: #666; margin-top: 2px; }
+
+    .stub-info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #ddd;
+    }
+    .stub-info-block { font-size: 11.5px; }
+    .stub-info-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #888; display: block; margin-bottom: 2px; font-family: sans-serif; }
+    .stub-info-value { font-size: 13px; font-weight: bold; color: #222; }
+
+    .stub-section-head {
+      background: #0f2341;
+      color: #fff;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+      font-family: sans-serif;
+    }
+    .stub-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 10px;
+      font-size: 12px;
+      border-bottom: 1px dotted #e0e0e0;
+    }
+    .stub-line.total-line {
+      border-top: 2px solid #0f2341;
+      border-bottom: 2px solid #0f2341;
+      font-weight: bold;
+      background: #f0fdfa;
+      margin-top: 2px;
+    }
+    .stub-net-bar {
+      background: #0f2341;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-family: sans-serif;
+    }
+    .stub-net-bar .label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .stub-net-bar .amount { font-size: 24px; font-weight: 800; color: #5eead4; }
+    .stub-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px; }
+    .stub-footer { margin-top: 16px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 10px; color: #aaa; text-align: center; font-family: sans-serif; }
+
+    .preview-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      #stubPreview { border: 1px solid #ccc; max-width: 100%; box-shadow: none !important; }
+      .site-header, .site-footer, .ad-banner, .tab-bar, .form-grid, .card-title, .card:not(#previewCard), .callout, .field, .btn, h1, .page-hero, .ad-rect, .ad-inline, .two-col > div:last-child { display: none !important; }
+      .two-col { display: block !important; }
+      .card { box-shadow: none !important; border: none !important; padding: 0 !important; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197205248872945"
+       crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header no-print">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">P</div>
+      <span class="logo-text">PayStub<span>Pal</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="paycheck-calculator.html">Paycheck Calc</a></li>
+        <li><a href="minimum-wage.html">Min Wage</a></li>
+        <li><a href="severance-calculator.html">Severance</a></li>
+        <li><a href="pay-stub-generator.html" class="active">Pay Stub</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="ad-banner no-print">Advertisement</div>
+
+<div class="page-wrap">
+  <div class="page-hero no-print">
+    <h1>Pay Stub Generator</h1>
+    <p>Fill in your details below and generate a professional pay stub instantly. Print or save as PDF — free, no account required.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="card no-print">
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab('company', this)">1. Company Info</button>
+          <button class="tab-btn" onclick="switchTab('employee', this)">2. Employee Info</button>
+          <button class="tab-btn" onclick="switchTab('pay', this)">3. Pay & Deductions</button>
+        </div>
+
+        <!-- COMPANY TAB -->
+        <div class="tab-panel active" id="tab-company">
+          <div class="form-grid">
+            <div class="field form-full">
+              <label>Company Name</label>
+              <input type="text" id="companyName" placeholder="Acme Corp" oninput="updatePreview()">
+            </div>
+            <div class="field form-full">
+              <label>Company Address</label>
+              <input type="text" id="companyAddr" placeholder="123 Main St, Anytown, NJ 08001" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Company Phone (optional)</label>
+              <input type="text" id="companyPhone" placeholder="(555) 000-0000" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>EIN / Tax ID (optional)</label>
+              <input type="text" id="companyEin" placeholder="XX-XXXXXXX" oninput="updatePreview()">
+            </div>
+          </div>
+          <button class="btn btn-primary mt-20" onclick="switchTab('employee', document.querySelectorAll('.tab-btn')[1])">Next: Employee Info →</button>
+        </div>
+
+        <!-- EMPLOYEE TAB -->
+        <div class="tab-panel" id="tab-employee">
+          <div class="form-grid">
+            <div class="field">
+              <label>Employee Full Name</label>
+              <input type="text" id="empName" placeholder="Jane Smith" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Employee ID (optional)</label>
+              <input type="text" id="empId" placeholder="EMP-0042" oninput="updatePreview()">
+            </div>
+            <div class="field form-full">
+              <label>Employee Address</label>
+              <input type="text" id="empAddr" placeholder="456 Oak Ave, Springfield, NJ 07081" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Job Title</label>
+              <input type="text" id="empTitle" placeholder="Senior Designer" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Department (optional)</label>
+              <input type="text" id="empDept" placeholder="Marketing" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>SSN (last 4 digits only)</label>
+              <input type="text" id="empSsn" maxlength="4" placeholder="XXXX" oninput="updatePreview()">
+              <span class="field-hint">Only last 4 digits shown on stub</span>
+            </div>
+            <div class="field">
+              <label>Pay Type</label>
+              <select id="stubPayType" onchange="updatePreview()">
+                <option value="salary">Salaried</option>
+                <option value="hourly">Hourly</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary mt-20" onclick="switchTab('pay', document.querySelectorAll('.tab-btn')[2])">Next: Pay Details →</button>
+        </div>
+
+        <!-- PAY TAB -->
+        <div class="tab-panel" id="tab-pay">
+          <div class="form-grid">
+            <div class="field">
+              <label>Pay Period Start</label>
+              <input type="date" id="periodStart" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Pay Period End</label>
+              <input type="date" id="periodEnd" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Pay Date</label>
+              <input type="date" id="payDate" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Check Number (optional)</label>
+              <input type="text" id="checkNum" placeholder="1042" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Gross Pay This Period ($)</label>
+              <input type="number" id="grossPay" placeholder="2500.00" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>YTD Gross ($)</label>
+              <input type="number" id="ytdGross" placeholder="32500.00" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Federal Income Tax ($)</label>
+              <input type="number" id="fedTax" placeholder="0.00" value="0" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>State Income Tax ($)</label>
+              <input type="number" id="stateTax" placeholder="0.00" value="0" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Social Security ($)</label>
+              <input type="number" id="ssTax" placeholder="0.00" value="0" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Medicare ($)</label>
+              <input type="number" id="mediTax" placeholder="0.00" value="0" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Other Deduction 1</label>
+              <input type="text" id="ded1Name" placeholder="Health Insurance" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Amount ($)</label>
+              <input type="number" id="ded1Amt" placeholder="0.00" value="0" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Other Deduction 2</label>
+              <input type="text" id="ded2Name" placeholder="401(k)" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Amount ($)</label>
+              <input type="number" id="ded2Amt" placeholder="0.00" value="0" min="0" step="0.01" oninput="updatePreview()">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-full mt-20" style="font-size:16px;height:52px;" onclick="updatePreview();document.getElementById('previewCard').scrollIntoView({behavior:'smooth'});">
+            Generate Pay Stub →
+          </button>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="card mt-20" id="previewCard">
+        <div class="card-title no-print">
+          <div class="card-title-icon">🖨️</div>
+          Pay Stub Preview
+        </div>
+
+        <div class="callout no-print" style="margin-bottom:16px;">
+          <strong>Ready to print?</strong> Click "Print Pay Stub" and choose "Save as PDF" in your browser's print dialog to download as a PDF file.
+        </div>
+
+        <div id="stubPreview">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="preview-actions no-print">
+          <button class="btn btn-primary" onclick="window.print()">🖨️ Print Pay Stub</button>
+          <button class="btn btn-secondary" onclick="clearForm()">Clear & Start Over</button>
+        </div>
+      </div>
+
+      <div class="ad-inline no-print">Advertisement — Insert AdSense 336x280 here</div>
+
+      <div class="callout callout-warn no-print">
+        <strong>Legal reminder:</strong> Pay stubs must reflect accurate, truthful information. This tool is for legitimate payroll record-keeping only. Using false income information to deceive a lender, landlord, or government agency is fraud.
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="no-print">
+      <div class="ad-rect">Advertisement<br>300x250</div>
+      <div class="card mt-20">
+        <div class="card-title" style="font-size:15px;"><div class="card-title-icon" style="width:30px;height:30px;font-size:14px;">❓</div>What's on a Pay Stub?</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+          <strong style="color:var(--navy);">Gross Pay</strong> — Total earnings before deductions.<br><br>
+          <strong style="color:var(--navy);">Federal Tax</strong> — Withheld based on W-4 and tax brackets.<br><br>
+          <strong style="color:var(--navy);">Social Security</strong> — 6.2% of gross wages up to $176,100.<br><br>
+          <strong style="color:var(--navy);">Medicare</strong> — 1.45% of all wages (no cap).<br><br>
+          <strong style="color:var(--navy);">YTD</strong> — Year-to-date totals for all line items.<br><br>
+          <strong style="color:var(--navy);">Net Pay</strong> — What you actually take home.
+        </div>
+      </div>
+      <div class="card mt-20">
+        <div class="card-title" style="font-size:15px;"><div class="card-title-icon" style="width:30px;height:30px;font-size:14px;">🔗</div>Related Tools</div>
+        <a href="paycheck-calculator.html" style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;margin-bottom:8px;">
+          <span style="font-size:20px;">💵</span>
+          <div><div style="font-size:13px;font-weight:600;color:var(--navy);">Paycheck Calculator</div><div style="font-size:12px;color:var(--text-secondary);">Calculate tax withholdings</div></div>
+        </a>
+        <a href="minimum-wage.html" style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;">
+          <span style="font-size:20px;">📊</span>
+          <div><div style="font-size:13px;font-weight:600;color:var(--navy);">Minimum Wage Lookup</div><div style="font-size:12px;color:var(--text-secondary);">All 50 states</div></div>
+        </a>
+      </div>
+      <div class="ad-rect mt-20">Advertisement<br>300x600</div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer no-print">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><div class="logo-mark">P</div><span class="logo-text">PayStub<span>Pal</span></span></a>
+        <p>Free pay stub generator for businesses, freelancers, and contractors.</p>
+      </div>
+      <div class="footer-col"><h4>Tools</h4><ul>
+        <li><a href="paycheck-calculator.html">Paycheck Calculator</a></li>
+        <li><a href="minimum-wage.html">Min Wage Lookup</a></li>
+        <li><a href="severance-calculator.html">Severance Estimator</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub Generator</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms.html">Terms</a></li><li><a href="privacy-policy.html#disclaimer">Disclaimer</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 PayStubPal.com</p>
+      <p class="disclaimer">For informational purposes only. Pay stubs must reflect accurate information. Not for use with false or misleading data.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+// Set today's date defaults
+const today = new Date();
+const todayStr = today.toISOString().split('T')[0];
+const endDate = new Date(today); endDate.setDate(today.getDate() - 14);
+document.getElementById('payDate').value = todayStr;
+document.getElementById('periodEnd').value = todayStr;
+document.getElementById('periodStart').value = endDate.toISOString().split('T')[0];
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function g(id) { return document.getElementById(id).value; }
+function fmtMoney(n) {
+  const v = parseFloat(n) || 0;
+  return '$' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+function fmtDate(s) {
+  if (!s) return '—';
+  const d = new Date(s + 'T00:00:00');
+  return d.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+}
+
+function updatePreview() {
+  const gross = parseFloat(g('grossPay')) || 0;
+  const fed = parseFloat(g('fedTax')) || 0;
+  const state = parseFloat(g('stateTax')) || 0;
+  const ss = parseFloat(g('ssTax')) || 0;
+  const medi = parseFloat(g('mediTax')) || 0;
+  const ded1 = parseFloat(g('ded1Amt')) || 0;
+  const ded2 = parseFloat(g('ded2Amt')) || 0;
+  const totalDed = fed + state + ss + medi + ded1 + ded2;
+  const net = gross - totalDed;
+
+  const ytdGross = parseFloat(g('ytdGross')) || gross;
+  const ytdFed = fed * (ytdGross / (gross || 1));
+  const ytdSS = ss * (ytdGross / (gross || 1));
+  const ytdMedi = medi * (ytdGross / (gross || 1));
+  const ytdState = state * (ytdGross / (gross || 1));
+  const ytdNet = ytdGross - (ytdFed + ytdSS + ytdMedi + ytdState + ded1 + ded2);
+
+  const ssn = g('empSsn') ? 'XXX-XX-' + g('empSsn') : '—';
+
+  document.getElementById('stubPreview').innerHTML = `
+    <div class="stub-header">
+      <div>
+        <div class="stub-co-name">${g('companyName') || 'Company Name'}</div>
+        <div class="stub-co-addr">${g('companyAddr') || 'Company Address'}${g('companyPhone') ? ' · ' + g('companyPhone') : ''}${g('companyEin') ? ' · EIN: ' + g('companyEin') : ''}</div>
+      </div>
+      <div class="stub-doc-title">
+        <h2>Pay Stub</h2>
+        <p>Pay Date: ${fmtDate(g('payDate'))}</p>
+        ${g('checkNum') ? '<p>Check #: ' + g('checkNum') + '</p>' : ''}
+      </div>
+    </div>
+
+    <div class="stub-info-row">
+      <div class="stub-info-block">
+        <span class="stub-info-label">Employee</span>
+        <div class="stub-info-value">${g('empName') || 'Employee Name'}</div>
+        <div style="font-size:11px;color:#666;margin-top:2px;">${g('empAddr') || ''}</div>
+      </div>
+      <div class="stub-info-block">
+        <span class="stub-info-label">Job Title</span>
+        <div class="stub-info-value">${g('empTitle') || '—'}</div>
+        ${g('empDept') ? '<div style="font-size:11px;color:#666;">Dept: ' + g('empDept') + '</div>' : ''}
+        ${g('empId') ? '<div style="font-size:11px;color:#666;">ID: ' + g('empId') + '</div>' : ''}
+      </div>
+      <div class="stub-info-block">
+        <span class="stub-info-label">Pay Period</span>
+        <div class="stub-info-value">${fmtDate(g('periodStart'))} – ${fmtDate(g('periodEnd'))}</div>
+      </div>
+      <div class="stub-info-block">
+        <span class="stub-info-label">SSN</span>
+        <div class="stub-info-value">${ssn}</div>
+      </div>
+    </div>
+
+    <div class="stub-two-col">
+      <div>
+        <div class="stub-section-head">Earnings</div>
+        <div class="stub-line"><span>Regular Pay</span><span>${fmtMoney(gross)}</span></div>
+        <div class="stub-line total-line"><span>TOTAL EARNINGS</span><span>${fmtMoney(gross)}</span></div>
+      </div>
+      <div>
+        <div class="stub-section-head">Deductions</div>
+        <div class="stub-line"><span>Federal Income Tax</span><span>${fmtMoney(fed)}</span></div>
+        <div class="stub-line"><span>State Income Tax</span><span>${fmtMoney(state)}</span></div>
+        <div class="stub-line"><span>Social Security</span><span>${fmtMoney(ss)}</span></div>
+        <div class="stub-line"><span>Medicare</span><span>${fmtMoney(medi)}</span></div>
+        ${ded1 > 0 ? '<div class="stub-line"><span>' + (g('ded1Name') || 'Deduction 1') + '</span><span>' + fmtMoney(ded1) + '</span></div>' : ''}
+        ${ded2 > 0 ? '<div class="stub-line"><span>' + (g('ded2Name') || 'Deduction 2') + '</span><span>' + fmtMoney(ded2) + '</span></div>' : ''}
+        <div class="stub-line total-line"><span>TOTAL DEDUCTIONS</span><span>${fmtMoney(totalDed)}</span></div>
+      </div>
+    </div>
+
+    <div class="stub-section-head">Year-to-Date Summary</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:12px;">
+      ${[
+        ['YTD Gross', fmtMoney(ytdGross)],
+        ['YTD Fed Tax', fmtMoney(ytdFed)],
+        ['YTD FICA', fmtMoney(ytdSS + ytdMedi)],
+        ['YTD Net', fmtMoney(ytdNet)]
+      ].map(([l,v]) => `<div style="padding:6px 10px;border-right:1px solid #ddd;border-bottom:1px solid #ddd;">
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.8px;color:#888;font-family:sans-serif;">${l}</div>
+        <div style="font-size:13px;font-weight:bold;color:#222;">${v}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="stub-net-bar">
+      <div class="label">Net Pay (Take Home)</div>
+      <div class="amount">${fmtMoney(net)}</div>
+    </div>
+
+    <div class="stub-footer">
+      Generated by PayStubPal.com · This document is for informational purposes only · ${new Date().toLocaleDateString()}
+    </div>
+  `;
+}
+
+function clearForm() {
+  document.querySelectorAll('input[type=text], input[type=number], input[type=date]').forEach(el => { el.value = ''; });
+  document.querySelectorAll('select').forEach(el => { el.selectedIndex = 0; });
+  document.getElementById('payDate').value = todayStr;
+  updatePreview();
+}
+
+updatePreview();
+</script>
+</body>
+</html>

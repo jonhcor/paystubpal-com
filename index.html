@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayStubPal — Free Paycheck & Wage Calculators</title>
+  <meta name="description" content="Free paycheck calculator, minimum wage lookup, severance estimator, and pay stub generator. Know exactly what you earn — no signup required.">
+  <link rel="canonical" href="https://www.paystubpal.com/">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a4060 100%);
+      padding: 72px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(13,148,136,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(13,148,136,0.2);
+      border: 1px solid rgba(13,148,136,0.4);
+      color: #5eead4;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.03em;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 60px);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 em {
+      color: #5eead4;
+      font-style: italic;
+    }
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+    .trust-item svg { color: #5eead4; flex-shrink: 0; }
+
+    .tools-section {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .tool-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      text-decoration: none;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--teal);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--teal-light);
+    }
+    .tool-card:hover::before { transform: scaleX(1); }
+    .tool-card-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+      flex-shrink: 0;
+    }
+    .icon-teal { background: var(--teal-xlight); }
+    .icon-navy { background: rgba(15,35,65,0.06); }
+    .tool-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .tool-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .tool-card-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+    .tool-card-link svg { transition: transform 0.2s; }
+    .tool-card:hover .tool-card-link svg { transform: translateX(4px); }
+
+    .features {
+      background: var(--navy);
+      padding: 64px 24px;
+    }
+    .features-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .feature-item { text-align: center; }
+    .feature-icon {
+      width: 56px; height: 56px;
+      background: rgba(13,148,136,0.15);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 26px;
+    }
+    .feature-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .feature-item p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+
+    .faq-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-q svg { flex-shrink: 0; transition: transform 0.3s; color: var(--teal); }
+    .faq-item.open .faq-q svg { transform: rotate(180deg); }
+    .faq-a {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-top: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, margin-top 0.2s;
+    }
+    .faq-item.open .faq-a { max-height: 200px; margin-top: 12px; }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197205248872945"
+       crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">P</div>
+      <span class="logo-text">PayStub<span>Pal</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="paycheck-calculator.html">Paycheck Calc</a></li>
+        <li><a href="minimum-wage.html">Min Wage</a></li>
+        <li><a href="severance-calculator.html">Severance</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="ad-banner">Advertisement <!-- Replace with AdSense leaderboard 728x90 / 320x50 --></div>
+
+<section class="hero">
+  <div class="hero-eyebrow">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+    100% Free · No Signup Required
+  </div>
+  <h1>Know Your <em>True</em> Take-Home Pay</h1>
+  <p>Free paycheck calculators, wage lookups, and pay stub tools trusted by employees, freelancers, and small businesses.</p>
+  <div class="hero-cta">
+    <a href="paycheck-calculator.html" class="btn btn-primary btn-lg">Calculate My Paycheck</a>
+    <a href="#tools" class="btn btn-secondary btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.3);">View All Tools</a>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L10.163 5.382L15 6.09L11.5 9.5L12.326 14.32L8 12.052L3.674 14.32L4.5 9.5L1 6.09L5.837 5.382L8 1Z" fill="currentColor"/></svg>
+      2025 Tax Rates
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 3L6 10L3 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      All 50 States
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Printable Pay Stubs
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1C4.134 1 1 4.134 1 8s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm0 12a5 5 0 110-10 5 5 0 010 10z" fill="currentColor"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Instant Results
+    </div>
+  </div>
+</section>
+
+<section class="tools-section" id="tools">
+  <div class="section-header">
+    <span class="section-label">Our Tools</span>
+    <h2>Everything About Your Pay, Free</h2>
+    <p>Four essential tools for understanding your compensation — no account, no ads blocking your results.</p>
+  </div>
+  <div class="tool-cards">
+    <a href="paycheck-calculator.html" class="tool-card">
+      <div class="tool-card-icon icon-teal">💵</div>
+      <h3>Paycheck Calculator</h3>
+      <p>Enter your salary or hourly rate and see exactly what you'll take home after federal tax, state tax, Social Security, and Medicare.</p>
+      <div class="tool-card-link">
+        Calculate now
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="minimum-wage.html" class="tool-card">
+      <div class="tool-card-icon icon-teal">📊</div>
+      <h3>Minimum Wage by State</h3>
+      <p>Look up the current minimum wage for all 50 states plus D.C. See scheduled increases and calculate your annual earnings at any rate.</p>
+      <div class="tool-card-link">
+        Look up rates
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="severance-calculator.html" class="tool-card">
+      <div class="tool-card-icon icon-navy">📋</div>
+      <h3>Severance Pay Estimator</h3>
+      <p>Estimate your severance package based on years of service, salary, and state. Know what to expect before your negotiation.</p>
+      <div class="tool-card-link">
+        Estimate severance
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+    <a href="pay-stub-generator.html" class="tool-card">
+      <div class="tool-card-icon icon-teal">🖨️</div>
+      <h3>Pay Stub Generator</h3>
+      <p>Create a professional pay stub in minutes. Perfect for freelancers, contractors, and small businesses that need proof of income fast.</p>
+      <div class="tool-card-link">
+        Generate stub
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="ad-inline" style="max-width:1160px;margin:0 auto 0;padding:0 24px;">
+  <div class="ad-inline" style="margin:0;width:100%;">Advertisement <!-- AdSense 728x90 or responsive --></div>
+</div>
+
+<section class="features">
+  <div class="features-inner">
+    <div class="section-header" style="color:#fff;">
+      <span class="section-label">Why PayStubPal</span>
+      <h2 style="color:#fff;">Built for Real People</h2>
+      <p style="color:rgba(255,255,255,0.6);">No confusing jargon, no upsells. Just accurate answers to your pay questions.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <h3>Instant Results</h3>
+        <p>No waiting, no loading screens. Enter your info and see your numbers immediately.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <h3>Accurate Tax Data</h3>
+        <p>Updated with 2025 federal and state tax brackets, FICA rates, and deductions.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <h3>Your Data Stays Private</h3>
+        <p>We never store your income data. All calculations run in your browser only.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📱</div>
+        <h3>Works on Any Device</h3>
+        <p>Fully mobile-optimized. Use on your phone, tablet, or desktop — same great experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="section-header" style="text-align:left;margin-bottom:0;">
+    <span class="section-label">FAQ</span>
+    <h2 style="margin-bottom:4px;">Common Questions</h2>
+  </div>
+  <div class="mt-24">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How accurate is the paycheck calculator?
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="faq-a">Our calculator uses current 2025 federal tax brackets and state tax rates. It accounts for standard deductions, FICA (Social Security and Medicare), and common filing statuses. Results are estimates — your actual paycheck may vary based on pre-tax deductions like 401(k) contributions, health insurance premiums, or local taxes not captured here.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is my salary information saved anywhere?
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="faq-a">No. All calculations happen entirely in your browser using JavaScript. No data is sent to our servers, stored, or shared with anyone. Your financial information is completely private.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Can I use the pay stub generator for loan applications?
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="faq-a">Our pay stub generator creates professional formatted documents for record-keeping and informational purposes. Pay stubs should only be created with accurate, truthful information. Creating a pay stub with false income information for the purpose of deceiving a lender is fraud.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How often is the minimum wage data updated?
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="faq-a">We review and update state minimum wage data when new rates take effect, typically January 1st or July 1st each year. We note scheduled future increases so you can plan ahead. Always verify with your state's Department of Labor for the most current official rate.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <div class="logo-mark">P</div>
+          <span class="logo-text">PayStub<span>Pal</span></span>
+        </a>
+        <p>Free paycheck and wage calculators for employees, freelancers, and small businesses. All calculations are estimates for informational purposes only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="paycheck-calculator.html">Paycheck Calculator</a></li>
+          <li><a href="minimum-wage.html">Min Wage Lookup</a></li>
+          <li><a href="severance-calculator.html">Severance Estimator</a></li>
+          <li><a href="pay-stub-generator.html">Pay Stub Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="paycheck-calculator.html">Tax Brackets 2025</a></li>
+          <li><a href="paycheck-calculator.html">FICA Explained</a></li>
+          <li><a href="paycheck-calculator.html">W-4 Guide</a></li>
+          <li><a href="paycheck-calculator.html">1099 vs W-2</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/#about">About</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="mailto:hello@paystubpal.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 PayStubPal.com · All rights reserved</p>
+      <p class="disclaimer">Disclaimer: All calculators on PayStubPal are for informational and educational purposes only. Results are estimates and do not constitute financial, legal, or tax advice. Consult a qualified professional for advice specific to your situation.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const ham = document.getElementById('hamburger');
+  const nav = document.getElementById('navLinks');
+  ham.addEventListener('click', () => { nav.classList.toggle('open'); });
+
+  function toggleFaq(el) {
+    el.closest('.faq-item').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

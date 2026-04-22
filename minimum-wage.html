@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimum Wage by State 2025 — Current Rates All 50 States | PayStubPal</title>
+  <meta name="description" content="Look up the current minimum wage for all 50 states plus D.C. See 2025 rates, upcoming increases, and calculate annual earnings. Updated regularly.">
+  <link rel="canonical" href="https://www.paystubpal.com/minimum-wage.html">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .state-highlight {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      color: #fff;
+      margin-bottom: 24px;
+      display: none;
+    }
+    .state-highlight.visible { display: block; }
+    .state-highlight-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+    .wage-hero {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1;
+      margin: 8px 0;
+    }
+    .wage-hero sup { font-size: 24px; vertical-align: super; }
+    .state-meta { font-size: 14px; opacity: 0.65; }
+    .calc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .earnings-chip {
+      background: rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-align: center;
+    }
+    .earnings-chip-val { font-size: 18px; font-weight: 700; }
+    .earnings-chip-label { font-size: 11px; opacity: 0.65; margin-top: 2px; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .legend {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .wage-table td.clickable { cursor: pointer; }
+    .wage-table tr.clickable:hover td { background: var(--teal-xlight); cursor: pointer; }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197205248872945"
+       crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">P</div>
+      <span class="logo-text">PayStub<span>Pal</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="paycheck-calculator.html">Paycheck Calc</a></li>
+        <li><a href="minimum-wage.html" class="active">Min Wage</a></li>
+        <li><a href="severance-calculator.html">Severance</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="ad-banner">Advertisement</div>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <h1>Minimum Wage by State</h1>
+    <p>Current 2025 minimum wage rates for all 50 states plus D.C. Click any state to see earnings calculations and details.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <!-- QUICK LOOKUP -->
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-icon">🔍</div>
+          Quick State Lookup
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Select a State</label>
+            <select id="stateSelect" onchange="showState()">
+              <option value="">— Choose a state —</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+              <option value="DC">Washington D.C.</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Hours Per Week</label>
+            <input type="number" id="hoursPerWeek" value="40" min="1" max="80">
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE HIGHLIGHT -->
+      <div class="state-highlight mt-20" id="stateHighlight">
+        <div class="state-meta" id="shLabel">Current minimum wage</div>
+        <div class="state-highlight-name" id="shName">—</div>
+        <div class="wage-hero"><sup>$</sup><span id="shRate">—</span><span style="font-size:22px;">/hr</span></div>
+        <div class="state-meta" id="shNote">—</div>
+        <div class="calc-row">
+          <div class="earnings-chip">
+            <div class="earnings-chip-val" id="shWeekly">—</div>
+            <div class="earnings-chip-label">Per Week</div>
+          </div>
+          <div class="earnings-chip">
+            <div class="earnings-chip-val" id="shMonthly">—</div>
+            <div class="earnings-chip-label">Per Month</div>
+          </div>
+          <div class="earnings-chip">
+            <div class="earnings-chip-val" id="shAnnual">—</div>
+            <div class="earnings-chip-label">Per Year</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-inline">Advertisement — Insert AdSense 728x90 here</div>
+
+      <!-- TABLE -->
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-icon">📊</div>
+          All States — 2025 Minimum Wage
+        </div>
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" id="tableSearch" placeholder="Search state..." oninput="filterTable()">
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="badge badge-teal">Above Fed</span> Higher than $7.25 federal</div>
+          <div class="legend-item"><span class="badge badge-navy">Federal Rate</span> Uses $7.25 federal minimum</div>
+        </div>
+        <div class="table-wrap">
+          <table class="wage-table" id="wageTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable('name')" style="cursor:pointer;">State ↕</th>
+                <th onclick="sortTable('rate')" style="cursor:pointer;">Min Wage ↕</th>
+                <th>Status</th>
+                <th>Notes / Next Increase</th>
+              </tr>
+            </thead>
+            <tbody id="wageTableBody"></tbody>
+          </table>
+        </div>
+        <div class="callout mt-16">
+          <strong>Note:</strong> Some cities and counties have higher minimum wages than the state rate. Always verify with your local Department of Labor. Data reflects rates as of January 2025.
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div>
+      <div class="ad-rect">Advertisement<br>300x250</div>
+      <div class="card mt-20">
+        <div class="card-title" style="font-size:15px;"><div class="card-title-icon" style="width:30px;height:30px;font-size:14px;">📌</div>Key Facts</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="padding:12px;background:var(--bg);border-radius:var(--radius-sm);">
+            <div style="font-size:12px;color:var(--text-secondary);margin-bottom:4px;">Federal Minimum Wage</div>
+            <div style="font-size:22px;font-weight:700;color:var(--navy);">$7.25/hr</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Unchanged since 2009</div>
+          </div>
+          <div style="padding:12px;background:var(--bg);border-radius:var(--radius-sm);">
+            <div style="font-size:12px;color:var(--text-secondary);margin-bottom:4px;">Highest State Rate</div>
+            <div style="font-size:22px;font-weight:700;color:var(--teal);">$17.50/hr</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Washington D.C.</div>
+          </div>
+          <div style="padding:12px;background:var(--bg);border-radius:var(--radius-sm);">
+            <div style="font-size:12px;color:var(--text-secondary);margin-bottom:4px;">States at Federal Rate</div>
+            <div style="font-size:22px;font-weight:700;color:var(--navy);">14 states</div>
+            <div style="font-size:12px;color:var(--text-secondary);">No state law / defers to federal</div>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-20">
+        <div class="card-title" style="font-size:15px;"><div class="card-title-icon" style="width:30px;height:30px;font-size:14px;">🔗</div>Related Tools</div>
+        <a href="paycheck-calculator.html" style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;margin-bottom:8px;">
+          <span style="font-size:20px;">💵</span>
+          <div><div style="font-size:13px;font-weight:600;color:var(--navy);">Paycheck Calculator</div><div style="font-size:12px;color:var(--text-secondary);">See take-home after taxes</div></div>
+        </a>
+        <a href="severance-calculator.html" style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;">
+          <span style="font-size:20px;">📋</span>
+          <div><div style="font-size:13px;font-weight:600;color:var(--navy);">Severance Estimator</div><div style="font-size:12px;color:var(--text-secondary);">Know what to expect</div></div>
+        </a>
+      </div>
+      <div class="ad-rect mt-20">Advertisement<br>300x600</div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><div class="logo-mark">P</div><span class="logo-text">PayStub<span>Pal</span></span></a>
+        <p>Free wage tools for workers, HR teams, and small businesses.</p>
+      </div>
+      <div class="footer-col"><h4>Tools</h4><ul>
+        <li><a href="paycheck-calculator.html">Paycheck Calculator</a></li>
+        <li><a href="minimum-wage.html">Min Wage Lookup</a></li>
+        <li><a href="severance-calculator.html">Severance Estimator</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub Generator</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms.html">Terms</a></li><li><a href="privacy-policy.html#disclaimer">Disclaimer</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 PayStubPal.com</p>
+      <p class="disclaimer">Minimum wage data is for informational purposes. Verify current rates with your state Department of Labor before making business or legal decisions.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger');
+ham.addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+const WAGES = [
+  {code:'AL',name:'Alabama',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'AK',name:'Alaska',rate:11.91,fed:false,note:'Increases with CPI annually'},
+  {code:'AZ',name:'Arizona',rate:14.70,fed:false,note:'CPI-indexed annually'},
+  {code:'AR',name:'Arkansas',rate:11.00,fed:false,note:''},
+  {code:'CA',name:'California',rate:16.50,fed:false,note:'Fast food workers: $20/hr'},
+  {code:'CO',name:'Colorado',rate:14.81,fed:false,note:'CPI-adjusted annually'},
+  {code:'CT',name:'Connecticut',rate:16.35,fed:false,note:'Increases to $16.35 Jan 2025'},
+  {code:'DE',name:'Delaware',rate:15.00,fed:false,note:''},
+  {code:'FL',name:'Florida',rate:14.00,fed:false,note:'Increases $1/yr; $15 Sep 2026'},
+  {code:'GA',name:'Georgia',rate:7.25,fed:true,note:'State law $5.15; federal applies'},
+  {code:'HI',name:'Hawaii',rate:14.00,fed:false,note:'Increases to $16 Jan 2026'},
+  {code:'ID',name:'Idaho',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'IL',name:'Illinois',rate:15.00,fed:false,note:'Reached $15 Jan 2025'},
+  {code:'IN',name:'Indiana',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'IA',name:'Iowa',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'KS',name:'Kansas',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'KY',name:'Kentucky',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'LA',name:'Louisiana',rate:7.25,fed:true,note:'No state minimum wage law'},
+  {code:'ME',name:'Maine',rate:14.65,fed:false,note:'CPI-indexed annually'},
+  {code:'MD',name:'Maryland',rate:15.00,fed:false,note:''},
+  {code:'MA',name:'Massachusetts',rate:15.00,fed:false,note:''},
+  {code:'MI',name:'Michigan',rate:12.48,fed:false,note:'Increased Feb 2025'},
+  {code:'MN',name:'Minnesota',rate:11.13,fed:false,note:'Large employer rate; small: $9.08'},
+  {code:'MS',name:'Mississippi',rate:7.25,fed:true,note:'No state minimum wage law'},
+  {code:'MO',name:'Missouri',rate:13.75,fed:false,note:'Increases to $15 Jan 2026'},
+  {code:'MT',name:'Montana',rate:10.55,fed:false,note:'CPI-indexed annually'},
+  {code:'NE',name:'Nebraska',rate:13.50,fed:false,note:'Increases to $15 Jan 2026'},
+  {code:'NV',name:'Nevada',rate:12.00,fed:false,note:''},
+  {code:'NH',name:'New Hampshire',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'NJ',name:'New Jersey',rate:15.49,fed:false,note:'CPI-indexed above $15 floor'},
+  {code:'NM',name:'New Mexico',rate:12.00,fed:false,note:'Increases to $13.50 Jan 2026'},
+  {code:'NY',name:'New York',rate:16.00,fed:false,note:'NYC metro: $16.50/hr'},
+  {code:'NC',name:'North Carolina',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'ND',name:'North Dakota',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'OH',name:'Ohio',rate:10.45,fed:false,note:'CPI-indexed annually'},
+  {code:'OK',name:'Oklahoma',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'OR',name:'Oregon',rate:14.70,fed:false,note:'Portland metro: $15.95/hr'},
+  {code:'PA',name:'Pennsylvania',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'RI',name:'Rhode Island',rate:15.00,fed:false,note:''},
+  {code:'SC',name:'South Carolina',rate:7.25,fed:true,note:'No state minimum wage law'},
+  {code:'SD',name:'South Dakota',rate:11.20,fed:false,note:'CPI-indexed annually'},
+  {code:'TN',name:'Tennessee',rate:7.25,fed:true,note:'No state minimum wage law'},
+  {code:'TX',name:'Texas',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'UT',name:'Utah',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'VT',name:'Vermont',rate:14.01,fed:false,note:'CPI-indexed annually'},
+  {code:'VA',name:'Virginia',rate:12.41,fed:false,note:'Increasing toward $15'},
+  {code:'WA',name:'Washington',rate:16.66,fed:false,note:'CPI-indexed; highest state rate'},
+  {code:'WV',name:'West Virginia',rate:8.75,fed:false,note:''},
+  {code:'WI',name:'Wisconsin',rate:7.25,fed:true,note:'Defers to federal rate'},
+  {code:'WY',name:'Wyoming',rate:5.15,fed:true,note:'State law $5.15; federal $7.25 applies'},
+  {code:'DC',name:'Washington D.C.',rate:17.50,fed:false,note:'Highest in the nation'}
+];
+
+let sortDir = {name:1, rate:-1};
+
+function renderTable(data) {
+  const tbody = document.getElementById('wageTableBody');
+  tbody.innerHTML = data.map(w => `
+    <tr class="clickable" onclick="selectState('${w.code}')">
+      <td class="state-name">${w.name}</td>
+      <td class="wage-amount">$${w.rate.toFixed(2)}/hr</td>
+      <td>${w.fed ? '<span class="badge badge-navy">Federal</span>' : '<span class="badge badge-teal">Above Fed</span>'}</td>
+      <td style="font-size:13px;color:var(--text-secondary);">${w.note || '—'}</td>
+    </tr>
+  `).join('');
+}
+
+function filterTable() {
+  const q = document.getElementById('tableSearch').value.toLowerCase();
+  renderTable(WAGES.filter(w => w.name.toLowerCase().includes(q) || w.code.toLowerCase().includes(q)));
+}
+
+function sortTable(col) {
+  sortDir[col] *= -1;
+  const sorted = [...WAGES].sort((a,b) => {
+    if (col === 'name') return a.name.localeCompare(b.name) * sortDir.name;
+    return (a.rate - b.rate) * sortDir.rate;
+  });
+  renderTable(sorted);
+}
+
+function selectState(code) {
+  document.getElementById('stateSelect').value = code;
+  showState();
+}
+
+function showState() {
+  const code = document.getElementById('stateSelect').value;
+  if (!code) return;
+  const w = WAGES.find(x => x.code === code);
+  if (!w) return;
+  const hrs = parseFloat(document.getElementById('hoursPerWeek').value) || 40;
+  const weekly = w.rate * hrs;
+  const monthly = weekly * 52 / 12;
+  const annual = weekly * 52;
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+
+  document.getElementById('shName').textContent = w.name;
+  document.getElementById('shRate').textContent = w.rate.toFixed(2);
+  document.getElementById('shNote').textContent = w.note || (w.fed ? 'Uses $7.25 federal minimum wage' : '');
+  document.getElementById('shLabel').textContent = '2025 minimum wage';
+  document.getElementById('shWeekly').textContent = fmt(weekly);
+  document.getElementById('shMonthly').textContent = fmt(monthly);
+  document.getElementById('shAnnual').textContent = fmt(annual);
+  document.getElementById('stateHighlight').classList.add('visible');
+  document.getElementById('stateHighlight').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+renderTable(WAGES);
+</script>
+</body>
+</html>

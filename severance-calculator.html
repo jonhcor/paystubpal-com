@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Severance Pay Calculator 2025 — Estimate Your Severance Package | PayStubPal</title>
+  <meta name="description" content="Free severance pay estimator. See how much severance you may be owed based on your salary, years of service, and state. Know your worth before you negotiate.">
+  <link rel="canonical" href="https://www.paystubpal.com/severance-calculator.html">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sev-range {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      color: #fff;
+      display: none;
+    }
+    .sev-range.visible { display: block; }
+    .range-label { font-size: 13px; font-weight: 600; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
+    .range-values { display: flex; align-items: baseline; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+    .range-low { font-family: var(--font-display); font-size: 36px; }
+    .range-sep { font-size: 20px; opacity: 0.4; }
+    .range-high { font-family: var(--font-display); font-size: 48px; color: #6ee7b7; }
+    .range-sub { font-size: 14px; opacity: 0.65; margin-top: 4px; }
+    .weeks-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .weeks-chip { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; text-align: center; }
+    .weeks-chip-val { font-size: 22px; font-weight: 700; }
+    .weeks-chip-label { font-size: 11px; opacity: 0.6; margin-top: 2px; }
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tips-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .tips-list .tip-icon { width: 24px; height: 24px; background: var(--teal-xlight); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+    .tier-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 16px; gap: 2px; }
+    .tier-bar-seg { height: 100%; border-radius: 2px; transition: width 0.5s; }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197205248872945"
+       crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">P</div>
+      <span class="logo-text">PayStub<span>Pal</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="paycheck-calculator.html">Paycheck Calc</a></li>
+        <li><a href="minimum-wage.html">Min Wage</a></li>
+        <li><a href="severance-calculator.html" class="active">Severance</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="ad-banner">Advertisement</div>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <h1>Severance Pay Estimator</h1>
+    <p>Find out what severance you might be entitled to — and what a fair package looks like before you negotiate.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="callout callout-warn">
+        <strong>Important:</strong> The US has no federal law requiring severance pay. These estimates are based on industry norms and common employer practices — not legal entitlements. Consult an employment attorney if you believe you were wrongfully terminated.
+      </div>
+
+      <div class="card mt-16">
+        <div class="card-title">
+          <div class="card-title-icon">📋</div>
+          Your Employment Details
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Annual Salary</label>
+            <input type="number" id="salary" placeholder="e.g. 85000" min="0" step="1000">
+          </div>
+          <div class="field">
+            <label>Years at This Company</label>
+            <input type="number" id="years" placeholder="e.g. 5" min="0" max="50" step="0.5">
+            <span class="field-hint">Partial years allowed (e.g. 3.5)</span>
+          </div>
+          <div class="field">
+            <label>Job Level / Seniority</label>
+            <select id="level">
+              <option value="entry">Entry Level / Hourly</option>
+              <option value="professional" selected>Professional / Individual Contributor</option>
+              <option value="manager">Manager / Team Lead</option>
+              <option value="director">Director / Senior Manager</option>
+              <option value="executive">VP / Executive / C-Suite</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Separation Type</label>
+            <select id="sepType">
+              <option value="layoff">Layoff / Reduction in Force</option>
+              <option value="termination">Termination Without Cause</option>
+              <option value="mutual">Mutual Agreement</option>
+              <option value="retirement">Early Retirement Offer</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Company Size</label>
+            <select id="companySize">
+              <option value="small">Small (under 100 employees)</option>
+              <option value="mid">Mid-size (100–1,000)</option>
+              <option value="large">Large (1,000–10,000)</option>
+              <option value="enterprise">Enterprise (10,000+)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Industry</label>
+            <select id="industry">
+              <option value="tech">Technology</option>
+              <option value="finance">Finance / Banking</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="retail">Retail / Hospitality</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="government">Government / Nonprofit</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full mt-24" onclick="calculate()" style="font-size:16px;height:52px;">
+          Estimate My Severance →
+        </button>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="sev-range mt-20" id="sevResults">
+        <div class="range-label">Estimated Severance Range</div>
+        <div class="range-values">
+          <div class="range-low" id="sevLow">$0</div>
+          <div class="range-sep">—</div>
+          <div class="range-high" id="sevHigh">$0</div>
+        </div>
+        <div class="range-sub" id="sevBasis">Based on X weeks of salary</div>
+
+        <div class="weeks-grid">
+          <div class="weeks-chip">
+            <div class="weeks-chip-val" id="weeksLow">—</div>
+            <div class="weeks-chip-label">Min Weeks</div>
+          </div>
+          <div class="weeks-chip">
+            <div class="weeks-chip-val" id="weeksMid">—</div>
+            <div class="weeks-chip-label">Typical Weeks</div>
+          </div>
+          <div class="weeks-chip">
+            <div class="weeks-chip-val" id="weeksHigh">—</div>
+            <div class="weeks-chip-label">Max Weeks</div>
+          </div>
+        </div>
+        <div class="range-sub mt-12" id="weeklySalary">Weekly salary: $—</div>
+      </div>
+
+      <!-- BREAKDOWN CARD -->
+      <div class="card mt-20 hidden" id="breakdownCard">
+        <div class="card-title">
+          <div class="card-title-icon">📊</div>
+          How This Is Calculated
+        </div>
+        <div id="calcBreakdown" style="font-size:14px;color:var(--text-secondary);line-height:1.8;"></div>
+
+        <div class="divider"></div>
+
+        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px;">What Is Typically Included in Severance</div>
+        <div id="inclusionsList"></div>
+      </div>
+
+      <div class="ad-inline">Advertisement — Insert AdSense 336x280 here</div>
+
+      <!-- NEGOTIATION TIPS -->
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-icon">💡</div>
+          Negotiation Tips
+        </div>
+        <ul class="tips-list">
+          <li><div class="tip-icon">✋</div><strong style="color:var(--navy);">Don't sign immediately.</strong> Most employers give you 21 days to review a severance agreement. Never sign on the same day — always take time to read it.</li>
+          <li><div class="tip-icon">🔍</div><strong style="color:var(--navy);">Know what you're giving up.</strong> Severance agreements typically include a release of claims. You may be waiving the right to sue — including for discrimination or wrongful termination.</li>
+          <li><div class="tip-icon">📈</div><strong style="color:var(--navy);">Longer tenure = more leverage.</strong> 5+ years earns you more negotiating room. Ask for at least 2 weeks per year of service rather than 1 week.</li>
+          <li><div class="tip-icon">💻</div><strong style="color:var(--navy);">Negotiate beyond cash.</strong> Extended health insurance (COBRA bridging), equity vesting, job title for references, and outplacement services are all on the table.</li>
+          <li><div class="tip-icon">⚖️</div><strong style="color:var(--navy);">Consider an employment attorney.</strong> A 1-hour consultation ($150–$350) can identify leverage you didn't know you had — especially if the termination seems suspicious.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div>
+      <div class="ad-rect">Advertisement<br>300x250</div>
+      <div class="card mt-20">
+        <div class="card-title" style="font-size:15px;"><div class="card-title-icon" style="width:30px;height:30px;font-size:14px;">📌</div>Industry Norms</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light);">
+            <span style="color:var(--text-secondary);">Technology</span>
+            <span style="font-weight:600;">2–4 wks/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light);">
+            <span style="color:var(--text-secondary);">Finance</span>
+            <span style="font-weight:600;">2–6 wks/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light);">
+            <span style="color:var(--text-secondary);">Healthcare</span>
+            <span style="font-weight:600;">1–3 wks/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light);">
+            <span style="color:var(--text-secondary);">Retail</span>
+            <span style="font-weight:600;">1–2 wks/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;">
+            <span style="color:var(--text-secondary);">Executive</span>
+            <span style="font-weight:600;">6–12+ mo</span>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-20">
+        <div class="card-title" style="font-size:15px;"><div class="card-title-icon" style="width:30px;height:30px;font-size:14px;">🔗</div>Related Tools</div>
+        <a href="paycheck-calculator.html" style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;margin-bottom:8px;">
+          <span style="font-size:20px;">💵</span>
+          <div><div style="font-size:13px;font-weight:600;color:var(--navy);">Paycheck Calculator</div><div style="font-size:12px;color:var(--text-secondary);">See take-home after taxes</div></div>
+        </a>
+        <a href="minimum-wage.html" style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;">
+          <span style="font-size:20px;">📊</span>
+          <div><div style="font-size:13px;font-weight:600;color:var(--navy);">Minimum Wage Lookup</div><div style="font-size:12px;color:var(--text-secondary);">All 50 states</div></div>
+        </a>
+      </div>
+      <div class="ad-rect mt-20">Advertisement<br>300x600</div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><div class="logo-mark">P</div><span class="logo-text">PayStub<span>Pal</span></span></a>
+        <p>Free wage tools for employees navigating career transitions.</p>
+      </div>
+      <div class="footer-col"><h4>Tools</h4><ul>
+        <li><a href="paycheck-calculator.html">Paycheck Calculator</a></li>
+        <li><a href="minimum-wage.html">Min Wage Lookup</a></li>
+        <li><a href="severance-calculator.html">Severance Estimator</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub Generator</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms.html">Terms</a></li><li><a href="privacy-policy.html#disclaimer">Disclaimer</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 PayStubPal.com</p>
+      <p class="disclaimer">Severance estimates are based on industry norms and are not a guarantee of any payment. No federal law requires severance pay. Consult an employment attorney for advice specific to your situation.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+const LEVEL_MULTIPLIER = { entry:1.0, professional:1.2, manager:1.5, director:2.0, executive:3.0 };
+const INDUSTRY_MULTIPLIER = { tech:1.3, finance:1.4, healthcare:1.0, retail:0.8, manufacturing:1.0, government:1.1, other:1.0 };
+const SIZE_MULTIPLIER = { small:0.8, mid:1.0, large:1.2, enterprise:1.4 };
+const SEP_MULTIPLIER = { layoff:1.0, termination:0.9, mutual:1.1, retirement:1.3 };
+
+function calculate() {
+  const salary = parseFloat(document.getElementById('salary').value) || 0;
+  const years = parseFloat(document.getElementById('years').value) || 0;
+  const level = document.getElementById('level').value;
+  const sepType = document.getElementById('sepType').value;
+  const companySize = document.getElementById('companySize').value;
+  const industry = document.getElementById('industry').value;
+
+  if (salary <= 0 || years <= 0) { alert('Please enter your salary and years of service.'); return; }
+
+  const weeklySalary = salary / 52;
+  const lm = LEVEL_MULTIPLIER[level];
+  const im = INDUSTRY_MULTIPLIER[industry];
+  const sm = SIZE_MULTIPLIER[companySize];
+  const sepm = SEP_MULTIPLIER[sepType];
+
+  // Base: 1 week per year of service
+  const baseWeeks = Math.ceil(years);
+  const lowWeeks = Math.max(2, Math.floor(baseWeeks * 0.75));
+  const midWeeks = Math.round(baseWeeks * lm * sm * sepm);
+  const highWeeks = Math.round(baseWeeks * lm * im * sm * sepm * 1.4);
+
+  const sevLow = lowWeeks * weeklySalary;
+  const sevMid = midWeeks * weeklySalary;
+  const sevHigh = highWeeks * weeklySalary;
+
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+
+  document.getElementById('sevLow').textContent = fmt(sevLow);
+  document.getElementById('sevHigh').textContent = fmt(sevHigh);
+  document.getElementById('sevBasis').textContent = `Based on ${lowWeeks}–${highWeeks} weeks of salary · ${years} year${years !== 1 ? 's' : ''} of service`;
+  document.getElementById('weeksLow').textContent = lowWeeks + ' wks';
+  document.getElementById('weeksMid').textContent = midWeeks + ' wks';
+  document.getElementById('weeksHigh').textContent = highWeeks + ' wks';
+  document.getElementById('weeklySalary').textContent = `Weekly salary: ${fmt(weeklySalary)} · Annual: ${fmt(salary)}`;
+
+  const levelLabels = { entry:'Entry Level', professional:'Professional', manager:'Manager', director:'Director', executive:'Executive' };
+  const indLabels = { tech:'Technology', finance:'Finance', healthcare:'Healthcare', retail:'Retail', manufacturing:'Manufacturing', government:'Government/Nonprofit', other:'Other' };
+  const sizeLabels = { small:'Small company', mid:'Mid-size company', large:'Large company', enterprise:'Enterprise' };
+  const sepLabels = { layoff:'Layoff/RIF', termination:'Termination without cause', mutual:'Mutual agreement', retirement:'Early retirement' };
+
+  document.getElementById('calcBreakdown').innerHTML = `
+    <strong style="color:var(--navy);">Starting point:</strong> 1 week of severance per year of service = <strong>${baseWeeks} base weeks</strong><br>
+    <strong style="color:var(--navy);">Adjusted for ${levelLabels[level]}:</strong> ×${lm.toFixed(1)} multiplier<br>
+    <strong style="color:var(--navy);">Adjusted for ${sizeLabels[companySize]}:</strong> ×${sm.toFixed(1)} multiplier<br>
+    <strong style="color:var(--navy);">Adjusted for ${sepLabels[sepType]}:</strong> ×${sepm.toFixed(1)} multiplier<br>
+    <strong style="color:var(--navy);">Industry (${indLabels[industry]}):</strong> ×${im.toFixed(1)} at upper range<br><br>
+    <span style="color:var(--text-light);font-size:13px;">These multipliers reflect real-world employer practices and negotiation outcomes, not legal requirements.</span>
+  `;
+
+  const inclusions = [
+    ['✓', 'Base severance pay (' + lowWeeks + '–' + highWeeks + ' weeks)', true],
+    ['✓', 'COBRA health insurance continuation (typically 1–3 months covered)', true],
+    ['?', 'Accelerated equity/stock vesting (negotiate if applicable)', false],
+    ['?', 'Outplacement services / career coaching', false],
+    ['?', 'Job title preservation for reference checks', false],
+    ['?', 'Non-compete agreement limitations', false],
+  ];
+
+  document.getElementById('inclusionsList').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      ${inclusions.map(([icon,text,likely]) => `
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;">
+          <span style="width:22px;height:22px;border-radius:6px;background:${likely?'var(--teal-light)':'var(--bg)'};color:${likely?'var(--teal-dark)':'var(--text-secondary)'};display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">${icon}</span>
+          <span style="color:var(--text-secondary);">${text}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.getElementById('sevResults').classList.add('visible');
+  document.getElementById('breakdownCard').classList.remove('hidden');
+  document.getElementById('sevResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>
