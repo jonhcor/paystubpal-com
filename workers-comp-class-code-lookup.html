@@ -1,645 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="canonical" href="https://paystubpal.com/workers-comp-class-code-lookup.html">
-<title>Workers' Comp Class Code Lookup | PayStubPal</title>
-<meta name="description" content="Look up NCCI workers' compensation class codes by job type, industry, or keyword. Find the right classification code for your employees instantly.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0f1f38;
-    --navy-mid: #162944;
-    --navy-light: #1e3a5f;
-    --teal: #0db8a4;
-    --teal-dim: #0a9086;
-    --amber: #f5a623;
-    --slate: #8099b8;
-    --slate-light: #b8cde0;
-    --white: #f0f5fa;
-    --card-bg: #162a47;
-    --border: rgba(13,184,164,0.18);
-    --low: #2ecc71;
-    --med: #f5a623;
-    --high: #e74c3c;
-    --font-mono: 'IBM Plex Mono', monospace;
-    --font-sans: 'DM Sans', sans-serif;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: var(--font-sans);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  /* ── Header ── */
-  header {
-    background: var(--navy-mid);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-  }
-  .header-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-  .logo {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--teal);
-    text-decoration: none;
-    letter-spacing: -0.5px;
-  }
-  .logo span { color: var(--white); }
-  nav a {
-    color: var(--slate-light);
-    text-decoration: none;
-    font-size: 0.85rem;
-    margin-left: 1.5rem;
-    transition: color 0.2s;
-  }
-  nav a:hover { color: var(--teal); }
-
-  /* ── Hero ── */
-  .hero {
-    background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy) 60%);
-    padding: 3.5rem 2rem 2.5rem;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -80px;
-    width: 380px; height: 380px;
-    background: radial-gradient(circle, rgba(13,184,164,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--teal);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-  h1 {
-    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-  }
-  h1 em { color: var(--teal); font-style: normal; }
-  .hero-sub {
-    color: var(--slate-light);
-    font-size: 1rem;
-    max-width: 580px;
-    margin-bottom: 2rem;
-  }
-
-  /* ── Search ── */
-  .search-bar {
-    display: flex;
-    gap: 0.5rem;
-    max-width: 660px;
-  }
-  .search-wrap {
-    flex: 1;
-    position: relative;
-  }
-  .search-wrap svg {
-    position: absolute;
-    left: 14px; top: 50%;
-    transform: translateY(-50%);
-    color: var(--slate);
-    pointer-events: none;
-  }
-  #searchInput {
-    width: 100%;
-    background: var(--navy-light);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem 0.75rem 2.75rem;
-    color: var(--white);
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  #searchInput::placeholder { color: var(--slate); }
-  #searchInput:focus { border-color: var(--teal); }
-
-  .filter-select {
-    background: var(--navy-light);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    color: var(--white);
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    outline: none;
-    cursor: pointer;
-    min-width: 160px;
-    transition: border-color 0.2s;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238099b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 2.2rem;
-  }
-  .filter-select:focus { border-color: var(--teal); }
-
-  /* ── Stats bar ── */
-  .stats-bar {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 1rem 2rem 0;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--slate);
-  }
-  #resultCount { color: var(--teal); }
-  .stats-bar .divider { color: var(--border); }
-
-  /* ── Main layout ── */
-  .main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
-
-  /* ── Table ── */
-  .table-wrap {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 1rem;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.88rem;
-  }
-  thead th {
-    background: rgba(13,184,164,0.07);
-    padding: 0.9rem 1.1rem;
-    text-align: left;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--slate);
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-  }
-  thead th:hover { color: var(--teal); }
-  thead th .sort-icon { margin-left: 4px; opacity: 0.5; }
-  thead th.sorted .sort-icon { opacity: 1; color: var(--teal); }
-
-  tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    transition: background 0.12s;
-  }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(13,184,164,0.05); }
-
-  td { padding: 0.85rem 1.1rem; vertical-align: middle; }
-
-  .code-cell {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--teal);
-    white-space: nowrap;
-  }
-  .desc-cell { color: var(--white); font-weight: 500; }
-  .industry-pill {
-    display: inline-block;
-    padding: 0.22rem 0.65rem;
-    border-radius: 20px;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    background: rgba(13,184,164,0.1);
-    color: var(--teal);
-    border: 1px solid rgba(13,184,164,0.2);
-    white-space: nowrap;
-  }
-  .hazard-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
-  }
-  .hazard-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .hazard-low  { color: var(--low);  background: rgba(46,204,113,0.1);  border: 1px solid rgba(46,204,113,0.2); }
-  .hazard-low::before  { background: var(--low); }
-  .hazard-med  { color: var(--med);  background: rgba(245,166,35,0.1);   border: 1px solid rgba(245,166,35,0.2); }
-  .hazard-med::before  { background: var(--med); }
-  .hazard-high { color: var(--high); background: rgba(231,76,60,0.1);   border: 1px solid rgba(231,76,60,0.2); }
-  .hazard-high::before { background: var(--high); }
-
-  .rate-cell {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--slate-light);
-    white-space: nowrap;
-  }
-
-  /* ── No results ── */
-  #noResults {
-    display: none;
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--slate);
-  }
-  #noResults .icon { font-size: 2.5rem; margin-bottom: 1rem; }
-  #noResults p { font-size: 0.95rem; }
-
-  /* ── Info cards ── */
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
-    margin-top: 2.5rem;
-  }
-  .info-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem 1.4rem;
-  }
-  .info-card h3 {
-    font-size: 0.82rem;
-    font-family: var(--font-mono);
-    color: var(--teal);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.6rem;
-  }
-  .info-card p { font-size: 0.85rem; color: var(--slate-light); line-height: 1.6; }
-
-  /* ── Disclaimer ── */
-  .disclaimer {
-    margin-top: 2rem;
-    padding: 1rem 1.25rem;
-    background: rgba(245,166,35,0.06);
-    border: 1px solid rgba(245,166,35,0.2);
-    border-radius: 8px;
-    font-size: 0.78rem;
-    color: var(--slate);
-    line-height: 1.6;
-  }
-  .disclaimer strong { color: var(--amber); }
-
-  /* ── Footer ── */
-  footer {
-    background: var(--navy-mid);
-    border-top: 1px solid var(--border);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--slate);
-  }
-  footer a { color: var(--teal); text-decoration: none; }
-
-  /* ── Highlight match ── */
-  mark {
-    background: rgba(13,184,164,0.25);
-    color: var(--teal);
-    border-radius: 2px;
-    padding: 0 1px;
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 700px) {
-    .header-inner nav { display: none; }
-    h1 { font-size: 1.5rem; }
-    .search-bar { flex-direction: column; }
-    .filter-select { min-width: unset; }
-    td:nth-child(5), th:nth-child(5) { display: none; }
-    td:nth-child(4), th:nth-child(4) { display: none; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use | PayStubPal</title>
+  <meta name="description" content="PayStubPal terms of use. Read our terms before using our free paycheck calculators and wage tools.">
+  <link rel="canonical" href="https://paystubpal.com/terms.html">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .policy-body { max-width: 720px; margin: 0 auto; }
+    .policy-body h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 32px 0 10px;
+    }
+    .policy-body h2:first-child { margin-top: 0; }
+    .policy-body p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .policy-body ul {
+      padding-left: 20px;
+      margin-bottom: 14px;
+    }
+    .policy-body ul li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 6px;
+    }
+    .policy-meta {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .toc {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+    .toc h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      padding-left: 18px;
+      margin: 0;
+    }
+    .toc ol li {
+      margin-bottom: 6px;
+    }
+    .toc ol li a {
+      font-size: 14px;
+      color: var(--teal);
+      text-decoration: none;
+    }
+    .toc ol li a:hover { text-decoration: underline; }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197205248872945"
+       crossorigin="anonymous"></script>
 </head>
 <body>
 
-<header>
+<header class="site-header">
   <div class="header-inner">
-    <a class="logo" href="/">PayStub<span>Pal</span></a>
+    <a href="/" class="logo">
+      <div class="logo-mark">P</div>
+      <span class="logo-text">PayStub<span>Pal</span></span>
+    </a>
     <nav>
-      <a href="/calculators">Calculators</a>
-      <a href="/employer-tools">Employer Tools</a>
-      <a href="/workers-comp-class-code-lookup" style="color:var(--teal)">Class Codes</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="paycheck-calculator.html">Paycheck Calc</a></li>
+        <li><a href="minimum-wage.html">Min Wage</a></li>
+        <li><a href="severance-calculator.html">Severance</a></li>
+        <li><a href="pay-stub-generator.html">Pay Stub</a></li>
+      </ul>
     </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">NCCI Workers' Comp Reference</p>
-    <h1>Workers' Compensation<br><em>Class Code Lookup</em></h1>
-    <p class="hero-sub">Find the correct NCCI classification code for any job type or industry. Used by employers, HR teams, and insurance agents to verify workers' comp classifications.</p>
-    <div class="search-bar">
-      <div class="search-wrap">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="searchInput" placeholder="Search job type, code, or keyword…" autocomplete="off" spellcheck="false">
-      </div>
-      <select class="filter-select" id="industryFilter">
-        <option value="">All Industries</option>
-        <option value="Construction">Construction</option>
-        <option value="Retail">Retail</option>
-        <option value="Office / Clerical">Office / Clerical</option>
-        <option value="Healthcare">Healthcare</option>
-        <option value="Food Service">Food Service</option>
-        <option value="Manufacturing">Manufacturing</option>
-        <option value="Transportation">Transportation</option>
-        <option value="Professional Services">Professional Services</option>
-        <option value="Agriculture">Agriculture</option>
-        <option value="Landscaping">Landscaping</option>
-        <option value="Janitorial / Cleaning">Janitorial / Cleaning</option>
-        <option value="Education">Education</option>
-        <option value="Technology">Technology</option>
-        <option value="Real Estate">Real Estate</option>
-        <option value="Security">Security</option>
-      </select>
+<div class="page-wrap">
+  <div class="policy-body">
+    <div class="page-hero" style="text-align:left;padding:40px 0 24px;max-width:100%;">
+      <h1>Terms of Use</h1>
+    </div>
+    <p class="policy-meta">Last updated: April 3, 2025 · Effective immediately</p>
+
+    <div class="toc">
+      <h3>Contents</h3>
+      <ol>
+        <li><a href="#acceptance">Acceptance of Terms</a></li>
+        <li><a href="#description">Description of Service</a></li>
+        <li><a href="#disclaimer">Disclaimer of Warranties</a></li>
+        <li><a href="#accuracy">Accuracy of Information</a></li>
+        <li><a href="#prohibited">Prohibited Uses</a></li>
+        <li><a href="#paystub">Pay Stub Generator — Important Notice</a></li>
+        <li><a href="#ip">Intellectual Property</a></li>
+        <li><a href="#liability">Limitation of Liability</a></li>
+        <li><a href="#links">Third-Party Links</a></li>
+        <li><a href="#changes">Changes to Terms</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </div>
+
+    <h2 id="acceptance">1. Acceptance of Terms</h2>
+    <p>By accessing or using the website located at <strong>www.paystubpal.com</strong> ("Site"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, please do not use the Site.</p>
+    <p>These Terms apply to all visitors, users, and others who access or use the Site. PayStubPal is operated by PayStubPal ("we," "us," or "our").</p>
+
+    <h2 id="description">2. Description of Service</h2>
+    <p>PayStubPal provides free, browser-based financial estimation tools including but not limited to:</p>
+    <ul>
+      <li>Paycheck and take-home pay calculators</li>
+      <li>Minimum wage lookup by state</li>
+      <li>Severance pay estimators</li>
+      <li>Pay stub generators</li>
+    </ul>
+    <p>All tools are provided free of charge for informational and educational purposes only. No account registration is required to use our tools.</p>
+
+    <h2 id="disclaimer">3. Disclaimer of Warranties</h2>
+    <p>THE SITE AND ALL TOOLS, CALCULATORS, AND CONTENT ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT ANY WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</p>
+    <p>We expressly disclaim all warranties, including but not limited to:</p>
+    <ul>
+      <li>Warranties of merchantability or fitness for a particular purpose</li>
+      <li>Warranties that results will be accurate, complete, or current</li>
+      <li>Warranties that the Site will be uninterrupted or error-free</li>
+      <li>Warranties that any defects will be corrected</li>
+    </ul>
+    <p><strong>PayStubPal is not a tax advisor, financial advisor, accountant, or attorney.</strong> Nothing on this Site constitutes tax advice, financial advice, legal advice, or professional advice of any kind. You should consult a qualified professional for advice specific to your situation.</p>
+
+    <h2 id="accuracy">4. Accuracy of Information</h2>
+    <p>We make reasonable efforts to ensure our calculators use current tax rates, wage data, and other information. However:</p>
+    <ul>
+      <li>Tax laws, rates, and brackets change frequently. Our tools may not reflect the most recent updates at all times.</li>
+      <li>Calculator results are <strong>estimates only</strong> and may differ from your actual paycheck, tax liability, or severance entitlement.</li>
+      <li>Minimum wage data is updated periodically but may not reflect mid-year changes by the time they take effect.</li>
+      <li>Severance estimates are based on general industry norms and are not a guarantee of any specific payment.</li>
+    </ul>
+    <p>Always verify critical financial and tax information with the IRS, your state Department of Revenue, your employer, or a qualified professional before making financial decisions.</p>
+
+    <h2 id="prohibited">5. Prohibited Uses</h2>
+    <p>You agree not to use the Site for any of the following purposes:</p>
+    <ul>
+      <li>Any unlawful purpose or in violation of any applicable laws or regulations</li>
+      <li>Generating, creating, or using fraudulent documents or financial records</li>
+      <li>Submitting false or misleading information to lenders, landlords, government agencies, or any third party</li>
+      <li>Attempting to gain unauthorized access to any portion of the Site or its systems</li>
+      <li>Scraping, crawling, or otherwise harvesting data from the Site in bulk without express written permission</li>
+      <li>Reproducing, duplicating, copying, or reselling any portion of the Site without permission</li>
+      <li>Transmitting spam, malware, or any harmful code through the Site</li>
+      <li>Impersonating PayStubPal or misrepresenting your affiliation with us</li>
+    </ul>
+
+    <h2 id="paystub">6. Pay Stub Generator — Important Notice</h2>
+    <p>Our pay stub generator is provided solely for <strong>legitimate payroll record-keeping, bookkeeping, and informational purposes</strong>. Acceptable uses include:</p>
+    <ul>
+      <li>Small business owners creating pay stubs for their actual employees</li>
+      <li>Freelancers and self-employed individuals creating records of their actual income</li>
+      <li>Employees recreating lost pay stub records using accurate information</li>
+    </ul>
+    <p><strong>The following uses are strictly prohibited and may constitute fraud under federal and state law:</strong></p>
+    <ul>
+      <li>Creating pay stubs that misrepresent your actual income for the purpose of qualifying for a loan, mortgage, apartment, or any financial product</li>
+      <li>Submitting fabricated pay stubs to any government agency, court, or financial institution</li>
+      <li>Using our generator to create documents intended to deceive any person or entity</li>
+    </ul>
+    <p>By using the pay stub generator, you certify that all information you enter is accurate and that you are not using the generated document for any fraudulent purpose. We reserve the right to cooperate with law enforcement investigations related to fraudulent use of our tools.</p>
+
+    <div class="callout callout-warn">
+      <strong>Legal warning:</strong> Creating or submitting a fraudulent pay stub is a crime. Penalties can include fines, criminal charges, and imprisonment. PayStubPal bears no responsibility for misuse of our tools.
+    </div>
+
+    <h2 id="ip">7. Intellectual Property</h2>
+    <p>All content on the Site, including but not limited to text, design, code, graphics, logos, and the selection and arrangement thereof, is the property of PayStubPal and is protected by applicable intellectual property laws.</p>
+    <p>You are granted a limited, non-exclusive, non-transferable license to access and use the Site for personal, non-commercial purposes. This license does not include:</p>
+    <ul>
+      <li>The right to reproduce or redistribute Site content commercially</li>
+      <li>The right to create derivative works based on Site content without permission</li>
+      <li>The right to use our name, logo, or branding without prior written consent</li>
+    </ul>
+
+    <h2 id="liability">8. Limitation of Liability</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, PAYSTUBPAL AND ITS OPERATORS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR ITS TOOLS.</p>
+    <p>This includes, without limitation, damages for:</p>
+    <ul>
+      <li>Financial decisions made in reliance on calculator estimates</li>
+      <li>Errors or inaccuracies in tax calculations or wage data</li>
+      <li>Loss of income or profits</li>
+      <li>Any actions taken based on severance estimates provided</li>
+    </ul>
+    <p>In no event shall our total liability to you for all claims exceed one hundred dollars ($100.00).</p>
+
+    <h2 id="links">9. Third-Party Links</h2>
+    <p>The Site may contain links to third-party websites such as government agencies, Department of Labor pages, and other external resources. These links are provided for convenience only.</p>
+    <p>We have no control over the content, privacy practices, or accuracy of third-party sites and accept no responsibility for them. Linking to a third-party site does not imply endorsement.</p>
+
+    <h2 id="changes">10. Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms at any time. When we make changes, we will update the "Last updated" date at the top of this page. Your continued use of the Site after any changes constitutes your acceptance of the new Terms.</p>
+    <p>We encourage you to review these Terms periodically. If you do not agree to the modified Terms, you should stop using the Site.</p>
+
+    <h2 id="contact">11. Contact</h2>
+    <p>If you have questions about these Terms, please contact us:</p>
+    <p>
+      <strong>PayStubPal</strong><br>
+      Email: <a href="mailto:legal@paystubpal.com" style="color:var(--teal);">legal@paystubpal.com</a><br>
+      Website: <a href="https://www.paystubpal.com" style="color:var(--teal);">www.paystubpal.com</a>
+    </p>
+
+    <div class="callout mt-24">
+      <strong>Plain English summary:</strong> Use our tools honestly and for legitimate purposes. Don't use them for fraud. Our calculators are estimates — not professional tax or legal advice. We're not liable for financial decisions you make based on our estimates.
     </div>
   </div>
-</section>
-
-<div class="stats-bar">
-  <span>Showing <strong id="resultCount">0</strong> codes</span>
-  <span class="divider">|</span>
-  <span>Source: NCCI (National Council on Compensation Insurance)</span>
-  <span class="divider">|</span>
-  <span>Rates vary by state — contact your insurer to confirm</span>
 </div>
 
-<main class="main">
-  <div class="table-wrap">
-    <table id="codeTable">
-      <thead>
-        <tr>
-          <th data-col="code">Code <span class="sort-icon">↕</span></th>
-          <th data-col="description">Job / Classification Description <span class="sort-icon">↕</span></th>
-          <th data-col="industry">Industry <span class="sort-icon">↕</span></th>
-          <th data-col="hazard">Hazard Level <span class="sort-icon">↕</span></th>
-          <th data-col="rate">Avg. Rate / $100 Payroll <span class="sort-icon">↕</span></th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
-    <div id="noResults">
-      <div class="icon">🔍</div>
-      <p>No class codes matched your search.<br>Try a different keyword or clear the industry filter.</p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><div class="logo-mark">P</div><span class="logo-text">PayStub<span>Pal</span></span></a>
+        <p>Free wage and paycheck tools for everyone.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="paycheck-calculator.html">Paycheck Calculator</a></li>
+          <li><a href="minimum-wage.html">Min Wage Lookup</a></li>
+          <li><a href="severance-calculator.html">Severance Estimator</a></li>
+          <li><a href="pay-stub-generator.html">Pay Stub Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="privacy-policy.html#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 PayStubPal.com · All rights reserved</p>
+      <p class="disclaimer">For informational purposes only. Not legal, tax, or financial advice.</p>
     </div>
   </div>
-
-  <div class="info-grid">
-    <div class="info-card">
-      <h3>What is a Class Code?</h3>
-      <p>Workers' comp class codes are 4-digit numbers assigned by NCCI that categorize employees by job type. Your insurer uses these codes to calculate your premium — each code carries its own base rate reflecting the risk level of that occupation.</p>
-    </div>
-    <div class="info-card">
-      <h3>How Premiums Are Calculated</h3>
-      <p>Your premium = (Total payroll ÷ 100) × class code rate × experience modifier. The class code rate shown here is a baseline — your state, insurer, and claims history all affect the final number.</p>
-    </div>
-    <div class="info-card">
-      <h3>NCCI vs. State-Specific Codes</h3>
-      <p>Most states use NCCI codes. However, California, New York, New Jersey, Texas, and a few others use their own independent rating bureaus with different code sets. Always verify with your state's workers' comp authority.</p>
-    </div>
-    <div class="info-card">
-      <h3>Misclassification Risks</h3>
-      <p>Using the wrong class code — intentionally or by mistake — can result in significant premium adjustments at audit, fines, or policy cancellation. When in doubt, ask your insurer or a licensed agent to verify the correct code.</p>
-    </div>
-  </div>
-
-  <div class="disclaimer">
-    <strong>Disclaimer:</strong> This tool is for informational and reference purposes only. Class code rates shown are national averages and will vary by state, insurer, and individual risk factors. This is not insurance advice. Consult a licensed workers' compensation insurance agent to confirm the correct classification codes and rates for your specific situation.
-  </div>
-</main>
-
-<footer>
-  <p>© 2025 PayStubPal · <a href="/calculators">Payroll Calculators</a> · <a href="/employer-tools">Employer Tools</a> · Workers' comp class codes sourced from NCCI public classification data.</p>
 </footer>
 
 <script>
-const CODES = [
-  // ── Construction ──
-  { code:"5645", description:"Carpentry – Residential Construction",          industry:"Construction",        hazard:"high", rate:"$8.20–$14.50" },
-  { code:"5403", description:"Carpentry – Commercial Construction",           industry:"Construction",        hazard:"high", rate:"$7.80–$13.00" },
-  { code:"5183", description:"Plumbing – Residential & Commercial",           industry:"Construction",        hazard:"high", rate:"$5.80–$10.20" },
-  { code:"5537", description:"HVAC / Air Conditioning & Heating Installation",industry:"Construction",        hazard:"high", rate:"$5.40–$9.80"  },
-  { code:"5057", description:"Iron / Steel Erection",                         industry:"Construction",        hazard:"high", rate:"$12.00–$22.00"},
-  { code:"5160", description:"Roofing – All Types",                           industry:"Construction",        hazard:"high", rate:"$12.50–$24.00"},
-  { code:"5213", description:"Concrete Work – Poured",                        industry:"Construction",        hazard:"high", rate:"$6.50–$11.00" },
-  { code:"5221", description:"Masonry – Brick, Block & Stone",                industry:"Construction",        hazard:"high", rate:"$6.80–$11.50" },
-  { code:"5474", description:"Painting – Buildings & Structures",             industry:"Construction",        hazard:"med",  rate:"$5.50–$9.50"  },
-  { code:"5506", description:"Street, Road & Highway Construction",           industry:"Construction",        hazard:"high", rate:"$8.00–$14.00" },
-  { code:"5022", description:"Masonry – Not Otherwise Classified",            industry:"Construction",        hazard:"high", rate:"$6.40–$10.80" },
-  { code:"6217", description:"Excavation / Grading / Land Leveling",         industry:"Construction",        hazard:"high", rate:"$7.00–$13.50" },
-  { code:"8227", description:"Construction – Not Otherwise Classified",       industry:"Construction",        hazard:"high", rate:"$7.00–$12.00" },
-  { code:"5348", description:"Tile, Stone & Mosaic Work",                     industry:"Construction",        hazard:"med",  rate:"$5.20–$8.80"  },
-  { code:"5190", description:"Electrical Wiring – Buildings",                 industry:"Construction",        hazard:"high", rate:"$4.80–$8.40"  },
-  { code:"5480", description:"Plastering / Drywall",                          industry:"Construction",        hazard:"med",  rate:"$5.00–$8.50"  },
-  { code:"5606", description:"General Contractor – Buildings",                industry:"Construction",        hazard:"high", rate:"$6.00–$10.50" },
-  { code:"5651", description:"Carpentry – Framing",                           industry:"Construction",        hazard:"high", rate:"$9.00–$15.00" },
-  // ── Retail ──
-  { code:"8017", description:"Retail Store – Not Otherwise Classified",       industry:"Retail",              hazard:"low",  rate:"$1.50–$3.00"  },
-  { code:"8039", description:"Clothing / Apparel Store",                      industry:"Retail",              hazard:"low",  rate:"$1.20–$2.50"  },
-  { code:"8047", description:"Drug Store / Pharmacy",                         industry:"Retail",              hazard:"low",  rate:"$1.30–$2.60"  },
-  { code:"8001", description:"Florist – Retail",                              industry:"Retail",              hazard:"low",  rate:"$1.40–$2.80"  },
-  { code:"8006", description:"Grocery Store – Retail",                        industry:"Retail",              hazard:"low",  rate:"$2.00–$3.50"  },
-  { code:"8010", description:"Hardware Store",                                industry:"Retail",              hazard:"low",  rate:"$1.80–$3.20"  },
-  { code:"8031", description:"Supermarket",                                   industry:"Retail",              hazard:"low",  rate:"$2.00–$3.80"  },
-  { code:"8033", description:"Convenience Store",                             industry:"Retail",              hazard:"med",  rate:"$2.50–$4.50"  },
-  { code:"8044", description:"Furniture Store",                               industry:"Retail",              hazard:"low",  rate:"$2.00–$3.60"  },
-  { code:"8046", description:"Auto Parts Store – Retail",                     industry:"Retail",              hazard:"low",  rate:"$1.80–$3.40"  },
-  { code:"8013", description:"Pet Supply Store",                              industry:"Retail",              hazard:"low",  rate:"$1.60–$3.00"  },
-  // ── Office / Clerical ──
-  { code:"8810", description:"Clerical Office Employee",                      industry:"Office / Clerical",   hazard:"low",  rate:"$0.18–$0.40"  },
-  { code:"8742", description:"Salesperson – Outside / Field Sales",           industry:"Office / Clerical",   hazard:"low",  rate:"$0.45–$1.00"  },
-  { code:"8820", description:"Attorney / Law Firm",                           industry:"Office / Clerical",   hazard:"low",  rate:"$0.20–$0.50"  },
-  { code:"8800", description:"Accounting / Auditing / Bookkeeping",           industry:"Office / Clerical",   hazard:"low",  rate:"$0.18–$0.38"  },
-  { code:"8803", description:"CPA / Certified Public Accountant",             industry:"Office / Clerical",   hazard:"low",  rate:"$0.18–$0.38"  },
-  { code:"8748", description:"Automobile Salesperson",                        industry:"Office / Clerical",   hazard:"low",  rate:"$0.60–$1.20"  },
-  { code:"8831", description:"Architect / Engineer Office",                   industry:"Office / Clerical",   hazard:"low",  rate:"$0.18–$0.42"  },
-  { code:"8868", description:"College / University – Professional Staff",     industry:"Office / Clerical",   hazard:"low",  rate:"$0.22–$0.50"  },
-  // ── Healthcare ──
-  { code:"8832", description:"Physician / Surgeon Office",                    industry:"Healthcare",          hazard:"low",  rate:"$0.40–$0.90"  },
-  { code:"8835", description:"Home Health Care Worker",                       industry:"Healthcare",          hazard:"med",  rate:"$2.80–$5.50"  },
-  { code:"8837", description:"Dentist / Dental Office",                       industry:"Healthcare",          hazard:"low",  rate:"$0.40–$0.85"  },
-  { code:"8049", description:"Veterinarian / Veterinary Clinic",              industry:"Healthcare",          hazard:"med",  rate:"$1.20–$2.80"  },
-  { code:"9040", description:"Hospital – All Other Employees",                industry:"Healthcare",          hazard:"med",  rate:"$2.00–$4.00"  },
-  { code:"8839", description:"Nursing Home / Assisted Living",                industry:"Healthcare",          hazard:"med",  rate:"$3.20–$6.00"  },
-  { code:"8824", description:"Chiropractor Office",                           industry:"Healthcare",          hazard:"low",  rate:"$0.38–$0.80"  },
-  { code:"8738", description:"Medical Equipment – Installation / Service",    industry:"Healthcare",          hazard:"med",  rate:"$2.00–$4.00"  },
-  // ── Food Service ──
-  { code:"9058", description:"Restaurant – Full Service (Sit-Down)",          industry:"Food Service",        hazard:"med",  rate:"$2.80–$5.00"  },
-  { code:"9071", description:"Bar / Tavern / Nightclub",                      industry:"Food Service",        hazard:"med",  rate:"$2.40–$4.50"  },
-  { code:"9079", description:"Fast Food Restaurant",                          industry:"Food Service",        hazard:"med",  rate:"$2.40–$4.20"  },
-  { code:"9084", description:"Coffee Shop / Café",                            industry:"Food Service",        hazard:"low",  rate:"$1.80–$3.50"  },
-  { code:"9082", description:"Restaurant – Casual Dining",                    industry:"Food Service",        hazard:"med",  rate:"$2.60–$4.80"  },
-  { code:"9061", description:"Caterer / Catering Service",                    industry:"Food Service",        hazard:"med",  rate:"$2.80–$5.20"  },
-  { code:"9083", description:"Pizza Delivery / Counter Service",              industry:"Food Service",        hazard:"med",  rate:"$3.00–$5.50"  },
-  // ── Manufacturing ──
-  { code:"3632", description:"Machine Shop / Machinist",                      industry:"Manufacturing",       hazard:"high", rate:"$4.50–$8.00"  },
-  { code:"2003", description:"Bakery / Commercial Baking",                    industry:"Manufacturing",       hazard:"med",  rate:"$2.80–$5.20"  },
-  { code:"2501", description:"Clothing / Apparel Manufacturing",              industry:"Manufacturing",       hazard:"med",  rate:"$2.00–$3.80"  },
-  { code:"3612", description:"Foundry / Metal Casting",                       industry:"Manufacturing",       hazard:"high", rate:"$8.00–$15.00" },
-  { code:"2112", description:"Brewery / Beer Manufacturing",                  industry:"Manufacturing",       hazard:"med",  rate:"$3.00–$5.50"  },
-  { code:"2111", description:"Winery / Wine Manufacturing",                   industry:"Manufacturing",       hazard:"med",  rate:"$2.80–$5.00"  },
-  { code:"4511", description:"Printing – All Types",                          industry:"Manufacturing",       hazard:"med",  rate:"$2.00–$4.00"  },
-  { code:"3824", description:"Chemical Manufacturing – NOC",                  industry:"Manufacturing",       hazard:"high", rate:"$5.00–$10.00" },
-  { code:"2802", description:"Cabinet / Furniture Manufacturing",             industry:"Manufacturing",       hazard:"med",  rate:"$4.00–$7.50"  },
-  { code:"3400", description:"Metal Goods Manufacturing – NOC",               industry:"Manufacturing",       hazard:"high", rate:"$5.50–$9.50"  },
-  // ── Transportation ──
-  { code:"7380", description:"Trucking – Long Haul (Interstate)",             industry:"Transportation",      hazard:"high", rate:"$8.00–$16.00" },
-  { code:"7382", description:"Trucking – Local (Intrastate)",                 industry:"Transportation",      hazard:"high", rate:"$7.00–$13.00" },
-  { code:"7231", description:"Auto Service / Garage – General Repair",        industry:"Transportation",      hazard:"med",  rate:"$3.50–$6.50"  },
-  { code:"7228", description:"Auto Body Repair / Body Shop",                  industry:"Transportation",      hazard:"med",  rate:"$3.00–$5.80"  },
-  { code:"7219", description:"Taxicab / Rideshare Driver",                    industry:"Transportation",      hazard:"high", rate:"$6.00–$12.00" },
-  { code:"7520", description:"Municipal / City Employees – NOC",              industry:"Transportation",      hazard:"med",  rate:"$4.00–$7.50"  },
-  { code:"7590", description:"Mail / Package Delivery Drivers",               industry:"Transportation",      hazard:"med",  rate:"$3.80–$7.00"  },
-  { code:"7370", description:"Freight Handling / Warehouse Loading",          industry:"Transportation",      hazard:"high", rate:"$5.50–$10.00" },
-  // ── Professional Services ──
-  { code:"8720", description:"Security Guard / Security Agency",              industry:"Security",            hazard:"med",  rate:"$2.50–$5.00"  },
-  { code:"8726", description:"Armed Security Guard",                          industry:"Security",            hazard:"high", rate:"$4.00–$8.00"  },
-  { code:"8745", description:"Courier / Messenger Service",                   industry:"Professional Services",hazard:"med", rate:"$2.00–$4.00"  },
-  { code:"7600", description:"Telecommunications – Installer / Tech",         industry:"Professional Services",hazard:"med", rate:"$3.00–$5.50"  },
-  { code:"8017", description:"IT Consultant / Computer Services",             industry:"Technology",          hazard:"low",  rate:"$0.25–$0.60"  },
-  { code:"8742", description:"Software Developer / Programmer",               industry:"Technology",          hazard:"low",  rate:"$0.20–$0.45"  },
-  { code:"7720", description:"Police Officer / Law Enforcement",              industry:"Professional Services",hazard:"high", rate:"$3.50–$7.00" },
-  { code:"7710", description:"Firefighter",                                   industry:"Professional Services",hazard:"high", rate:"$5.00–$10.00"},
-  { code:"8742", description:"Insurance Agent / Broker",                      industry:"Professional Services",hazard:"low",  rate:"$0.22–$0.50" },
-  { code:"8742", description:"Real Estate Agent / Broker",                    industry:"Real Estate",         hazard:"low",  rate:"$0.25–$0.55"  },
-  { code:"9015", description:"Building / Property Management",                industry:"Real Estate",         hazard:"med",  rate:"$2.00–$4.00"  },
-  // ── Agriculture ──
-  { code:"0005", description:"Farm – Nursery / Greenhouse Workers",           industry:"Agriculture",         hazard:"med",  rate:"$4.00–$7.50"  },
-  { code:"0008", description:"Farm – Truck / Produce Farm",                   industry:"Agriculture",         hazard:"high", rate:"$6.00–$11.00" },
-  { code:"0016", description:"Farm Machinery Operation",                      industry:"Agriculture",         hazard:"high", rate:"$5.50–$10.00" },
-  { code:"0034", description:"Poultry / Egg Farm",                            industry:"Agriculture",         hazard:"med",  rate:"$4.50–$8.50"  },
-  { code:"0042", description:"Landscaping / Lawn Care",                       industry:"Landscaping",         hazard:"med",  rate:"$5.00–$9.50"  },
-  { code:"0106", description:"Tree Trimming / Arborist",                      industry:"Landscaping",         hazard:"high", rate:"$10.00–$20.00"},
-  { code:"0050", description:"Landscape Maintenance – Commercial",            industry:"Landscaping",         hazard:"med",  rate:"$4.50–$8.00"  },
-  // ── Janitorial / Cleaning ──
-  { code:"9014", description:"Janitorial / Custodial Services",               industry:"Janitorial / Cleaning",hazard:"med", rate:"$2.50–$5.00"  },
-  { code:"9015", description:"Building Cleaning – Outside Window Washing",    industry:"Janitorial / Cleaning",hazard:"high", rate:"$6.00–$12.00" },
-  { code:"9009", description:"Carpet & Upholstery Cleaning",                  industry:"Janitorial / Cleaning",hazard:"med", rate:"$2.80–$5.20"  },
-  { code:"9012", description:"House Cleaning / Maid Service",                 industry:"Janitorial / Cleaning",hazard:"med", rate:"$2.40–$4.80"  },
-  // ── Education ──
-  { code:"8868", description:"Teacher – Public/Private School",               industry:"Education",           hazard:"low",  rate:"$0.45–$1.00"  },
-  { code:"8869", description:"School / University Support Staff",             industry:"Education",           hazard:"low",  rate:"$1.00–$2.20"  },
-  { code:"9101", description:"Daycare / Childcare Worker",                    industry:"Education",           hazard:"low",  rate:"$0.80–$1.80"  },
-  { code:"8870", description:"College Professor",                             industry:"Education",           hazard:"low",  rate:"$0.20–$0.45"  },
-];
-
-// ── State ──
-let sortCol = null, sortDir = 1;
-let filtered = [...CODES];
-
-// ── Helpers ──
-function highlight(text, query) {
-  if (!query) return escHtml(text);
-  const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-  return escHtml(text).replace(re, '<mark>$1</mark>');
-}
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-function hazardLabel(h) {
-  const map = { low:'Low', med:'Medium', high:'High' };
-  return `<span class="hazard-badge hazard-${h}">${map[h]||h}</span>`;
-}
-
-// ── Render ──
-function render(query) {
-  const tbody = document.getElementById('tableBody');
-  const noRes = document.getElementById('noResults');
-  tbody.innerHTML = '';
-  if (filtered.length === 0) {
-    noRes.style.display = 'block';
-    document.getElementById('resultCount').textContent = '0';
-    return;
-  }
-  noRes.style.display = 'none';
-  document.getElementById('resultCount').textContent = filtered.length;
-  filtered.forEach(r => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="code-cell">${highlight(r.code, query)}</td>
-      <td class="desc-cell">${highlight(r.description, query)}</td>
-      <td><span class="industry-pill">${escHtml(r.industry)}</span></td>
-      <td>${hazardLabel(r.hazard)}</td>
-      <td class="rate-cell">${escHtml(r.rate)}</td>`;
-    tbody.appendChild(tr);
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
   });
-}
-
-// ── Filter ──
-function applyFilter() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  const ind = document.getElementById('industryFilter').value;
-  filtered = CODES.filter(r => {
-    const matchQ = !q || r.code.includes(q) || r.description.toLowerCase().includes(q) || r.industry.toLowerCase().includes(q);
-    const matchI = !ind || r.industry === ind;
-    return matchQ && matchI;
-  });
-  if (sortCol) applySort();
-  else render(q);
-}
-
-// ── Sort ──
-function applySort() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  filtered.sort((a,b) => {
-    let av = a[sortCol], bv = b[sortCol];
-    if (sortCol === 'rate') { av = parseFloat(av); bv = parseFloat(bv); }
-    return av < bv ? -sortDir : av > bv ? sortDir : 0;
-  });
-  render(q);
-}
-
-document.getElementById('searchInput').addEventListener('input', applyFilter);
-document.getElementById('industryFilter').addEventListener('change', applyFilter);
-
-document.querySelectorAll('thead th[data-col]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = th.dataset.col;
-    if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
-    document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted'));
-    th.classList.add('sorted');
-    th.querySelector('.sort-icon').textContent = sortDir === 1 ? '↑' : '↓';
-    applyFilter();
-  });
-});
-
-// Initial render
-applyFilter();
 </script>
 </body>
 </html>
